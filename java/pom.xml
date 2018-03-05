@@ -1,0 +1,213 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>employeeslist-java</artifactId>
+	<packaging>jar</packaging>
+
+	<name>employeeslist-java</name>
+	<description>Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<eclipselink.version>2.7.1</eclipselink.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud-services.version>1.6.1.RELEASE</spring-cloud-services.version>
+		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
+	</properties>
+
+
+	<dependencies>
+
+		<!-- spring cloud service connector for CF -->
+		<!-- For deployment in cloud foundry -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-spring-service-connector</artifactId>
+			<!-- <version>${spring.cloud}</version> -->
+		</dependency>
+
+		<!-- Cloud foundry connector -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+			<!-- <version>${spring.cloud}</version> -->
+		</dependency>
+
+		<!-- HANA service connector for connecting to HANA Service in SAP CF. -->
+		<dependency>
+			<groupId>com.sap.hana.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+			<version>1.0.4.RELEASE</version>
+		</dependency>
+
+		<!-- Logging Support for Cloud Foundry -->
+		<dependency>
+			<groupId>com.sap.hcp.cf.logging</groupId>
+			<artifactId>cf-java-logging-support-logback</artifactId>
+			<version>2.0.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sap.hcp.cf.logging</groupId>
+			<artifactId>cf-java-logging-support-servlet</artifactId>
+			<version>2.0.10</version>
+		</dependency>
+
+		<!-- Security -->
+
+		<!-- Spring JPA. Since, we are using eclipse link JPA. We exclude default 
+			hibernate JPA. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-entitymanager</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<!-- <version>2.9.9</version> -->
+		</dependency>
+
+		<!--dependency>
+			<groupId>com.sap.db.jdbc</groupId>
+			<artifactId>ngdbc</artifactId>
+			<version>2.0.14</version>
+		</dependency-->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+		<!-- Security 		-->
+		<dependency>
+			<groupId>com.sap.xs2.security</groupId>
+			<artifactId>security-commons</artifactId>
+			<version>0.26.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>1.0.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.unboundid.components</groupId>
+			<artifactId>json</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.security.nw.sso.linuxx86_64.opt</groupId>
+			<artifactId>sapjwt.linuxx86_64</artifactId>
+			<version>1.0.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.security.nw.sso.ntamd64.opt</groupId>
+			<artifactId>sapjwt.ntamd64</artifactId>
+			<version>1.0.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.security.nw.sso.linuxppc64.opt</groupId>
+			<artifactId>sapjwt.linuxppc64</artifactId>
+			<version>1.0.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.security.nw.sso.darwinintel64.opt</groupId>
+			<artifactId>sapjwt.darwinintel64</artifactId>
+			<version>1.0.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sap.xs2.security</groupId>
+			<artifactId>java-container-security</artifactId>
+			<version>0.26.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.xs2.security</groupId>
+			<artifactId>java-container-security-api</artifactId>
+			<version>0.26.13</version>
+		</dependency>
+		
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>io.pivotal.spring.cloud</groupId>
+				<artifactId>spring-cloud-services-dependencies</artifactId>
+				<version>${spring-cloud-services.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

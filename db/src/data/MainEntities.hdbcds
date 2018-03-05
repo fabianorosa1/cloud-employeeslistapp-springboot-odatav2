@@ -1,0 +1,8 @@
+context MainEntities {
+	
+	ENTITY Employee {
+        key id                  :   Integer;
+        firstName               :   String(100);
+        lastName               :   String(100);
+    };    
+};

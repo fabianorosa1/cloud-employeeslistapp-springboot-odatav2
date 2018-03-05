@@ -1,0 +1,29 @@
+---
+applications:
+
+#- name: approuter
+#  host: approuter-springboot
+#  path: approuter
+#  memory: 128M
+#  buildpack: nodejs_buildpack
+#  env:
+#    TENANT_HOST_PATTERN: 'approuter-springboot(.*).cfapps.eu10.hana.ondemand.com'
+#    destinations: '[{"name":"backend-destination", "url" :"https://employeeslist-java.cfapps.eu10.hana.ondemand.com", "forwardAuthToken": true}]'
+#  services:
+#    - xsuaa-springboot
+    
+- name: employeeslist-java
+  path: java/target/employeeslist-java-0.0.1-SNAPSHOT.jar
+  memory: 768M
+  buildpack: sap_java_buildpack
+  services:
+   - hanadb-hdi-container
+   - app-logs
+   - xsuaa-springboot
+  env:
+   SPRING_PROFILES_DEFAULT: cloud
+   #JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+   SAP_JWT_TRUST_ACL: '[{"clientid" : "*", "identityzone" : "*"}]'
+   #JBP_CONFIG_SAPJVM_MEMORY_SIZES: 'metaspace:96m..'
+   #REQUEST_TRACE: true
+   #SESSION_TIMEOUT: 10

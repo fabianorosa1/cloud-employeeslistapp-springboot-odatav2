@@ -1,0 +1,78 @@
+_schema-version: "2.0"
+ID: com.sap.cloud.sample.employeeslist
+version: 1.3.10
+
+modules: 
+           
+# - name: employeeslist-db
+#   type: hdb
+#   path: db
+#   requires:
+#     - name: hanadb-hdi-container
+
+
+# - name: employeeslist-java
+#   type: java.tomcat
+#   path: java
+#   build-parameters:
+#     ignore: [ pom.xml, target/, node/]
+#     builder: maven
+#     buildpack: java_buildpack
+#     maven-opts:
+#        command: [ clean, verify ]
+#   parameters:
+#      memory: 768M
+#   provides:
+#    - name: employeeslist-service
+#      properties:
+#        url: "${default-url}" 
+#   properties:
+#         SAP_JWT_TRUST_ACL: '[{"clientid" : "*", "identityzone" : "*"}]'
+#         SPRING_PROFILES_DEFAULT: cloud        
+#   requires:
+#    - name: hanadb-hdi-container
+
+           
+# - name: employeeslist-ui
+#   type: javascript.nodejs
+#   path: web
+#   build-parameters:
+#     ignore: [".gitignore", ".cfignore", pom.xml, target/, sapui5/, node/]
+#     builder: npm
+#   parameters:
+#      disk-quota: 256M
+#      memory: 256M   
+#   requires:
+#    - name: employeeslist-service
+#      group: destinations
+#      properties:
+#        name: employeesService
+#        url: ~{url}
+   
+ - name: approuter
+   type: javascript.nodejs
+   path: approuter
+   parameters:
+     host: approuter-springboot
+     memory: 128M
+   requires:
+    - name: xsuaa-springboot
+      properties:
+         TENANT_HOST_PATTERN: 'approuter-springboot(.*).cfapps.eu10.hana.ondemand.com'
+         destinations: '[{"name":"backend-destination", "url" :"https://employeeslist-java.cfapps.eu10.hana.ondemand.com", "forwardAuthToken": true}]'
+         
+resources:
+# - name: hanadb-hdi-container
+#   type: com.sap.xs.hdi-container
+#   properties:
+#      hdi-container-name: ${service-name}
+#   parameters:
+#      config:
+#         schema: employees 
+# - name: app-logs
+#   type: application-logs
+#   parameters:
+#     service-plan: lite
+ - name: xsuaa-springboot
+   type: com.sap.xs.uaa      
+ 

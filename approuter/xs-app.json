@@ -1,0 +1,10 @@
+{
+	"welcomeFile": "home",
+	"routes": [
+		{
+			"source": "/",
+			"target": "/",
+			"destination": "backend-destination"
+		}
+	]
+}

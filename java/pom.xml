@@ -116,18 +116,22 @@
 			<!-- <version>2.9.9</version> -->
 		</dependency>
 
-		<!--dependency>
-			<groupId>com.sap.db.jdbc</groupId>
-			<artifactId>ngdbc</artifactId>
-			<version>2.0.14</version>
-		</dependency-->
+		<!--dependency> <groupId>com.sap.db.jdbc</groupId> <artifactId>ngdbc</artifactId> 
+			<version>2.0.14</version> </dependency -->
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
-		<!-- Security 		-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Security -->
 		<dependency>
 			<groupId>com.sap.xs2.security</groupId>
 			<artifactId>security-commons</artifactId>
@@ -179,7 +183,12 @@
 			<artifactId>java-container-security-api</artifactId>
 			<version>0.26.13</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.11.0</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -191,7 +200,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>io.pivotal.spring.cloud</groupId>
 				<artifactId>spring-cloud-services-dependencies</artifactId>

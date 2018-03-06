@@ -4,20 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-
-import com.sap.cf.springboot.config.CloudConfig;
 
 /**
  * 
  * @author fabiano.rosa
  *
  */
-@SpringBootApplication
+@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
 @ComponentScan(basePackages = { "com.sap.cf.springboot" })
-public class AppController extends SpringBootServletInitializer {
+public class AppController {
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 
 	// Main method gives control to Spring by invoking run on Spring Application.
@@ -26,13 +22,6 @@ public class AppController extends SpringBootServletInitializer {
 		logger.info(">>>Enter main!!!!!");
 		SpringApplication.run(AppController.class, args);
 
-	}
-
-	// This method adds Configuration class for Spring Application Context builder
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		logger.info(">>>Enter configure!!!!!");
-		return builder.sources(AppController.class, CloudConfig.class);
 	}
 
 //	@Bean

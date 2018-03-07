@@ -5,14 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sap.cf.springboot.model.Employee;
 import com.sap.cf.springboot.repository.EmployeeRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -21,9 +21,9 @@ import com.sap.cf.springboot.repository.EmployeeRepository;
  */
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements IEmployeeService {
-	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
-
+	
 	@PersistenceContext
 	EntityManager em;
 
@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public List<Employee> findAllByFirstName(String firstName) {
-		logger.info(">>> findAllByFirstName");
+		log.info(">>> findAllByFirstName");
 
 		List<Employee> employees = (List<Employee>) employeeRepository.findAll();
 		return employees;
@@ -40,10 +40,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public Employee findOneById(Integer id) {
-		logger.info(">>> findOneById: " + id);
+		log.info(">>> findOneById: " + id);
 
 		Employee employee = this.employeeRepository.findOne(id);
-		logger.info(">>> employee: " + employee);
+		log.info(">>> employee: " + employee);
 
 		return employee;
 	}
@@ -51,8 +51,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	@Transactional
 	public Employee create(Employee employee) {
-		logger.info(">>> create: " + employee);
-		logger.info(">>> EntityManager: " + this.em);
+		log.info(">>> create: " + employee);
+		log.info(">>> EntityManager: " + this.em);
 
 		Employee emp = this.employeeRepository.save(employee);
 		// this.employeeRepository.flush();
@@ -62,10 +62,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public List<Employee> findAll() {
-		logger.info(">>> findAll");
+		log.info(">>> findAll");
 
 		List<Employee> employees = (List<Employee>) employeeRepository.findAll();
-		logger.info(">>> employees: " + employees);
+		log.info(">>> employees: " + employees);
 
 		return employees;
 	}

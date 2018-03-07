@@ -6,6 +6,8 @@ https://employeeslist-java.cfapps.eu10.hana.ondemand.com/create
 
 https://approuter-springboot.cfapps.eu10.hana.ondemand.com
 
+https://approuter-springboot.cfapps.eu10.hana.ondemand.com/odata.svc/Employees
+
 https://S0017254285trial.authentication.eu10.hana.ondemand.com/config?action=who
 
 # Blogs and tutorials about this scenario

@@ -3,8 +3,6 @@ package com.sap.cf.springboot.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.CloudFactory;
 import org.springframework.cloud.config.java.AbstractCloudConfig;
@@ -19,6 +17,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author fabiano.rosa
@@ -32,9 +32,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Profile("cloud")
 @EnableTransactionManagement
 @ImportResource("classpath:/spring/spring-security.xml")
+@Slf4j
 public class CloudConfig extends AbstractCloudConfig {
 	private static final String HANA_SVC = "hanadb-hdi-container";
-	private static final Logger logger = LoggerFactory.getLogger(CloudConfig.class);
 
 	// TODO read the Pool configuration from a Properties
 	private static final int MIN_POOL_SIZE = 2;
@@ -50,7 +50,7 @@ public class CloudConfig extends AbstractCloudConfig {
 	 */
 	@Bean
 	public DataSource dataSource() {
-		logger.info(">>>Enter dataSource!!!!!");
+		log.info(">>>Enter dataSource!!!!!");
 
 		CloudFactory cloudFactory = new CloudFactory();
 		Cloud cloud = cloudFactory.getCloud();
@@ -62,19 +62,19 @@ public class CloudConfig extends AbstractCloudConfig {
 
 		DataSource ds = cloud.getServiceConnector(HANA_SVC, DataSource.class, config);
 
-		logger.info(">>>DataSource: " + ds);
+		log.info(">>>DataSource: " + ds);
 
 		return ds;
 	}
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-		logger.info(">>>Enter transactionManager!!!!!: " + emf);
+		log.info(">>>Enter transactionManager!!!!!: " + emf);
 
 		final JpaTransactionManager transactionManager = new JpaTransactionManager();
 
 		transactionManager.setEntityManagerFactory(emf);
-		logger.debug(">>>transactionManager: " + transactionManager);
+		log.debug(">>>transactionManager: " + transactionManager);
 
 		return transactionManager;
 	}

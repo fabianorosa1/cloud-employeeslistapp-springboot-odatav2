@@ -2,8 +2,6 @@ package com.sap.cf.springboot.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +14,8 @@ import com.sap.xs2.security.container.SecurityContext;
 import com.sap.xs2.security.container.UserInfo;
 import com.sap.xs2.security.container.UserInfoException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author fabiano.rosa
@@ -23,9 +23,8 @@ import com.sap.xs2.security.container.UserInfoException;
  */
 
 @RestController
+@Slf4j
 public class EmployeeController {
-
-	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private IEmployeeService employeeService;
@@ -33,7 +32,7 @@ public class EmployeeController {
 	@GetMapping("/home")
 	@ResponseBody
 	public String getHome() {
-		logger.info(">>> GET Home - SERVICE");		
+		log.info(">>> GET Home - SERVICE");		
 		
 		return "SpringBoot Employee List - Home Works !!!!";
 	}
@@ -41,7 +40,7 @@ public class EmployeeController {
 	@GetMapping("/create")
 	@ResponseBody
 	public Employee createEmployee() {
-		logger.info(">>> createEmployee");
+		log.info(">>> createEmployee");
 		
 		Employee employee = new Employee();
 		employee.setFirstName("testeFirst-" + this.hashCode());
@@ -53,7 +52,7 @@ public class EmployeeController {
 	@GetMapping("/employee/{id}")
 	@ResponseBody
 	public Employee getEmployeeById(@PathVariable(value = "id") final Integer id) {
-		logger.info(">>> GET Employee BY ID: " + id);
+		log.info(">>> GET Employee BY ID: " + id);
 		
 		return employeeService.findOneById(id);
 	}
@@ -61,7 +60,7 @@ public class EmployeeController {
 	@GetMapping("/employees")
 	@ResponseBody
 	public List<Employee> getAllEmployees() {
-		logger.info(">>> GET ALL Employee");
+		log.info(">>> GET ALL Employee");
 		List<Employee> listEmployee = employeeService.findAll();
 		
 		return listEmployee;
@@ -73,22 +72,22 @@ public class EmployeeController {
 	@GetMapping("/info")
 	@ResponseBody
 	public String getLoginInfo() throws UserInfoException {
-		logger.info(">>> getLoginInfo");
+		log.info(">>> getLoginInfo");
 		
 		UserInfo userInfo = SecurityContext.getUserInfo(); 
-		logger.info("userInfo: " + userInfo);
+		log.info("userInfo: " + userInfo);
 		
 		String name = userInfo.getLogonName(); 
-		logger.info("name: " + name);
+		log.info("name: " + name);
 		
 		String email = userInfo.getEmail();
-		logger.info("email: " + email);
+		log.info("email: " + email);
 		
 		//String[] attribute = userInfo.getAttribute("my attribute");
-		//logger.info("attribute: " + attribute);
+		//log.info("attribute: " + attribute);
 		
 		boolean hasDeleteScope = userInfo.checkLocalScope("Delete");
-		logger.info("hasDeleteScope: " + hasDeleteScope);
+		log.info("hasDeleteScope: " + hasDeleteScope);
 		
 		return name;
 	}

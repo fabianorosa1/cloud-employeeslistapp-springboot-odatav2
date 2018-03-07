@@ -8,8 +8,6 @@ import javax.sql.DataSource;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.eclipse.persistence.logging.SessionLog;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
@@ -22,6 +20,8 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author fabiano.a.rosa http://www.baeldung.com/spring-eclipselink
@@ -30,30 +30,30 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.sap.cf.springboot.repository")
 @EntityScan(basePackages = "com.sap.cf.springboot.model")
+@Slf4j
 public class JpaConfiguration extends JpaBaseConfiguration {
-	private static final Logger logger = LoggerFactory.getLogger(JpaConfiguration.class);
 
 	protected JpaConfiguration(DataSource dataSource, JpaProperties properties,
 			ObjectProvider<JtaTransactionManager> jtaTransactionManager,
 			ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
 		super(dataSource, properties, jtaTransactionManager, transactionManagerCustomizers);
-		logger.info(">>>Enter JpaConfiguration");
+		log.info(">>>Enter JpaConfiguration");
 
-		logger.debug(">>>Enter JpaConfiguration dataSource: " + dataSource);
-		logger.debug(">>>Enter JpaConfiguration properties: " + properties);
-		logger.debug(">>>Enter JpaConfiguration jtaTransactionManager: " + jtaTransactionManager);
+		log.debug(">>>Enter JpaConfiguration dataSource: " + dataSource);
+		log.debug(">>>Enter JpaConfiguration properties: " + properties);
+		log.debug(">>>Enter JpaConfiguration jtaTransactionManager: " + jtaTransactionManager);
 	}
 
 	@Override
 	protected AbstractJpaVendorAdapter createJpaVendorAdapter() {
-		logger.info(">>>Enter createJpaVendorAdapter!!!!!");
+		log.info(">>>Enter createJpaVendorAdapter!!!!!");
 		return new EclipseLinkJpaVendorAdapter();
 	}
 
 	@Override
 	protected String[] getPackagesToScan() {
 		String[] packages = super.getPackagesToScan();
-		logger.info("$$$$$ getPackagesToScan: " + Arrays.toString(packages));
+		log.info("$$$$$ getPackagesToScan: " + Arrays.toString(packages));
 		return packages;
 	}
 
@@ -86,13 +86,13 @@ public class JpaConfiguration extends JpaBaseConfiguration {
 		map.put(PersistenceUnitProperties.TARGET_DATABASE, "HANA");
 		map.put(PersistenceUnitProperties.CACHE_STATEMENTS, "true");
 
-		logger.info(">>>Enter createJpaVendorAdapter: " + map);
+		log.info(">>>Enter createJpaVendorAdapter: " + map);
 
 		return map;
 	}
 
 	private String detectWeavingMode() {
-		logger.info(">>>Enter detectWeavingMode!!!!!");
+		log.info(">>>Enter detectWeavingMode!!!!!");
 		return InstrumentationLoadTimeWeaver.isInstrumentationAvailable() ? "true" : "static";
 	}
 }

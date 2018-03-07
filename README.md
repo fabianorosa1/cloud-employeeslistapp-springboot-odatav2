@@ -102,10 +102,23 @@ mvn install:install-file -Dfile=ngdbc.jar -DgroupId=com.sap.db.jdbc -DartifactId
 
 -------------------------------------------- 
 
+Retrieve Credentials for Remote Applications
+
+https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/0f48b2e84d73489692450ea7bf4d1916.html
+
 XSUAA
 
 https://blogs.sap.com/2017/11/16/guide-for-user-authentication-and-authorization-in-sap-cloud-platform/
 
+https://github.com/SAP/cloud-cf-product-list-sample/tree/master/exercises/09_secure
+
+Maintaining Application Security in XS Advanced
+
+https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.02/en-US/35d910ee7c7a445a950b6aad989a5a26.html
+
+SAP HANA Security - User Authentication
+
+https://help.sap.com/viewer/b3ee5778bc2e4a089d3299b82ec762a7/2.0.02/en-US/e38e802c5b32432aa3007ff8a94cd2f4.html
 -------------------------------------------- 
 Retrieve Credentials for Remote Applications
 https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/0f48b2e84d73489692450ea7bf4d1916.html
